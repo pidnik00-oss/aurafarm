@@ -1,73 +1,156 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Выбор прогулки</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 70px;
-            background: #f2f2f2;
-        }
+<title>Когда</title>
 
-        .box {
-            background: white;
-            width: 300px;
-            margin: auto;
-            padding: 25px;
-            border-radius: 15px;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        input, button {
-            width: 90%;
-            padding: 10px;
-            margin: 10px;
-            font-size: 16px;
-        }
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #5ecbff, #2f80ed);
+}
 
-        button {
-            cursor: pointer;
-        }
-    </style>
+.card {
+    background: white;
+    width: 90%;
+    max-width: 350px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+h2 {
+    margin-bottom: 25px;
+    color: #333;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 20px;
+    border: none;
+    background: #2f80ed;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #2366c4;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+</style>
 </head>
 
 <body>
 
-<div class="box">
-    <h2>Когда гуляем?</h2>
+<div class="card">
 
-    <form action="https://formspree.io/f/xaqzbnyb" method="POST">
+<form action="https://formspree.io/f/xaqzbnyb" method="POST">
 
-        <label>Твоё имя</label><br>
-        <input 
-            type="text" 
-            name="Имя"
-            required
-        >
-
-        <label>Выбери дату</label><br>
-        <input 
-            type="date" 
-            name="Дата"
-            required
-        >
-
-        <label>Выбери время</label><br>
-        <input 
-            type="time" 
-            name="Время"
-            required
-        >
-
-        <button type="submit">
-            Отправить
-        </button>
-
-    </form>
+<div class="step active" id="step1">
+    <h2>Как тебя зовут?</h2>
+    <input type="text" name="Имя" id="name" required>
+    <button type="button" onclick="nextStep(2)">
+        Далее
+    </button>
 </div>
+
+
+<div class="step" id="step2">
+    <h2>Когда тебе удобно?</h2>
+    <input type="date" name="Дата" id="date" required>
+    <button type="button" onclick="nextStep(3)">
+        Далее
+    </button>
+</div>
+
+
+<div class="step" id="step3">
+    <h2>Во сколько?</h2>
+
+    <select name="Время" required>
+        <option value="">Выбери время</option>
+        <option>12:00</option>
+        <option>12:30</option>
+        <option>13:00</option>
+        <option>13:30</option>
+        <option>14:00</option>
+        <option>14:30</option>
+        <option>15:00</option>
+        <option>15:30</option>
+        <option>16:00</option>
+        <option>16:30</option>
+        <option>17:00</option>
+        <option>17:30</option>
+        <option>18:00</option>
+        <option>18:30</option>
+        <option>19:00</option>
+        <option>19:30</option>
+        <option>20:00</option>
+        <option>20:30</option>
+        <option>21:00</option>
+        <option>21:30</option>
+        <option>22:00</option>
+        <option>22:30</option>
+        <option>23:00</option>
+    </select>
+
+    <button type="submit">
+        Отправить
+    </button>
+</div>
+
+</form>
+
+</div>
+
+
+<script>
+function nextStep(number) {
+
+    if(number === 2 && !document.getElementById("name").value){
+        alert("Введи имя");
+        return;
+    }
+
+    if(number === 3 && !document.getElementById("date").value){
+        alert("Выбери дату");
+        return;
+    }
+
+    document.querySelectorAll(".step")
+    .forEach(step => step.classList.remove("active"));
+
+    document.getElementById("step" + number)
+    .classList.add("active");
+}
+</script>
 
 </body>
 </html>
