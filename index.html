@@ -1,17 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Когда гуляем?</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор прогулки</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 70px;
+            background: #f2f2f2;
+        }
+
+        .box {
+            background: white;
+            width: 300px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        input, button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Выбери дату и время</h1>
 
-    <label>Дата:</label>
-    <input type="date"><br><br>
+<div class="box">
+    <h2>Когда гуляем?</h2>
 
-    <label>Время:</label>
-    <input type="time"><br><br>
+    <form action="https://formspree.io/f/xaqzbnyb" method="POST">
 
-    <button>Отправить</button>
+        <label>Твоё имя</label><br>
+        <input 
+            type="text" 
+            name="Имя"
+            required
+        >
+
+        <label>Выбери дату</label><br>
+        <input 
+            type="date" 
+            name="Дата"
+            required
+        >
+
+        <label>Выбери время</label><br>
+        <input 
+            type="time" 
+            name="Время"
+            required
+        >
+
+        <button type="submit">
+            Отправить
+        </button>
+
+    </form>
+</div>
+
 </body>
 </html>
