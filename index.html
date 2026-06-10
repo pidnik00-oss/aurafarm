@@ -71,7 +71,7 @@ button:hover {
 
 <div class="card">
 
-<form action="https://formspree.io/f/xaqzbnyb" method="POST">
+<form id="walkForm">
 
 <div class="step active" id="step1">
     <h2>Как тебя зовут?</h2>
@@ -121,13 +121,18 @@ button:hover {
         <option>23:00</option>
     </select>
 
-    <button type="submit">
-        Отправить
+    <button type="button" onclick="sendForm()">
+    Отправить
     </button>
 </div>
 
 </form>
 
+</div>
+
+<div class="step" id="thanks">
+    <h2>Спасибо! 👍</h2>
+    <p>Твой ответ успешно отправлен.</p>
 </div>
 
 
@@ -150,6 +155,49 @@ function nextStep(number) {
     document.getElementById("step" + number)
     .classList.add("active");
 }
+
+async function sendForm() {
+
+    const time = document.querySelector('select');
+
+    if (!time.value) {
+        alert("Выбери время");
+        return;
+    }
+
+    const formData = new FormData(
+        document.getElementById("walkForm")
+    );
+
+    const response = await fetch(
+        "https://formspree.io/f/xaqzbnyb",
+        {
+            method: "POST",
+            body: formData,
+            headers: {
+                "Accept": "application/json"
+            }
+        }
+    );
+
+    if (response.ok) {
+
+        document.querySelectorAll(".step")
+            .forEach(step =>
+                step.classList.remove("active")
+            );
+
+        document
+            .getElementById("thanks")
+            .classList.add("active");
+
+    } else {
+
+        alert("Ошибка отправки. Попробуй ещё раз.");
+
+    }
+}
+    
 </script>
 
 </body>
