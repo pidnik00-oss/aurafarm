@@ -58,12 +58,48 @@ button:hover {
 }
 
 .step {
-    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+    transition: 0.4s ease;
 }
 
 .step.active {
-    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    position: relative;
+    pointer-events: all;
 }
+
+.time-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.time-btn {
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid #2f80ed;
+    background: white;
+    color: #2f80ed;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.time-btn:hover {
+    background: #e7f2ff;
+}
+
+.time-btn.selected {
+    background: #2f80ed;
+    color: white;
+}
+
 </style>
 </head>
 
@@ -94,32 +130,46 @@ button:hover {
 <div class="step" id="step3">
     <h2>Во сколько?</h2>
 
-    <select name="Время" required>
-        <option value="">Выбери время</option>
-        <option>12:00</option>
-        <option>12:30</option>
-        <option>13:00</option>
-        <option>13:30</option>
-        <option>14:00</option>
-        <option>14:30</option>
-        <option>15:00</option>
-        <option>15:30</option>
-        <option>16:00</option>
-        <option>16:30</option>
-        <option>17:00</option>
-        <option>17:30</option>
-        <option>18:00</option>
-        <option>18:30</option>
-        <option>19:00</option>
-        <option>19:30</option>
-        <option>20:00</option>
-        <option>20:30</option>
-        <option>21:00</option>
-        <option>21:30</option>
-        <option>22:00</option>
-        <option>22:30</option>
-        <option>23:00</option>
-    </select>
+    <input type="hidden" name="Время" id="timeInput">
+
+<div class="time-grid">
+
+<button type="button" class="time-btn">12:00</button>
+<button type="button" class="time-btn">12:30</button>
+
+<button type="button" class="time-btn">13:00</button>
+<button type="button" class="time-btn">13:30</button>
+
+<button type="button" class="time-btn">14:00</button>
+<button type="button" class="time-btn">14:30</button>
+
+<button type="button" class="time-btn">15:00</button>
+<button type="button" class="time-btn">15:30</button>
+
+<button type="button" class="time-btn">16:00</button>
+<button type="button" class="time-btn">16:30</button>
+
+<button type="button" class="time-btn">17:00</button>
+<button type="button" class="time-btn">17:30</button>
+
+<button type="button" class="time-btn">18:00</button>
+<button type="button" class="time-btn">18:30</button>
+
+<button type="button" class="time-btn">19:00</button>
+<button type="button" class="time-btn">19:30</button>
+
+<button type="button" class="time-btn">20:00</button>
+<button type="button" class="time-btn">20:30</button>
+
+<button type="button" class="time-btn">21:00</button>
+<button type="button" class="time-btn">21:30</button>
+
+<button type="button" class="time-btn">22:00</button>
+<button type="button" class="time-btn">22:30</button>
+
+<button type="button" class="time-btn">23:00</button>
+
+</div>
 
     <button type="button" onclick="sendForm()">
     Отправить
@@ -157,7 +207,7 @@ function nextStep(number) {
 
 async function sendForm() {
 
-    const time = document.querySelector('select');
+    const time = document.getElementById("timeInput");
 
     if (!time.value) {
         alert("Выбери время");
@@ -196,6 +246,23 @@ async function sendForm() {
 
     }
 }
+
+const buttons = document.querySelectorAll(".time-btn");
+const timeInput = document.getElementById("timeInput");
+
+buttons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        buttons.forEach(btn => {
+            btn.classList.remove("selected");
+        });
+
+        button.classList.add("selected");
+        timeInput.value = button.textContent;
+    });
+
+});
     
 </script>
 
