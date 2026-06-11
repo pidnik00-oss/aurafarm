@@ -100,6 +100,24 @@ button:hover {
     color: white;
 }
 
+.choice {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    position: relative;
+    height: 80px;
+}
+
+.choice button {
+    width: 100px;
+}
+
+#noBtn {
+    position: absolute;
+    right: 20px;
+    transition: 0.25s;
+}
+
 </style>
 </head>
 
@@ -109,7 +127,23 @@ button:hover {
 
 <form id="walkForm">
 
-<div class="step active" id="step1">
+<div class="step active" id="start">
+
+    <h2>Пойдёшь гулять? </h2>
+
+    <div class="choice">
+        <button type="button" onclick="startForm()">
+            Да 
+        </button>
+
+        <button type="button" id="noBtn">
+            Нет 
+        </button>
+    </div>
+
+</div>
+
+<div class="step" id="step1">
     <h2>Как тебя зовут?</h2>
     <input type="text" name="Имя" id="name" required>
     <button type="button" onclick="nextStep(2)">
@@ -246,6 +280,50 @@ async function sendForm() {
 
     }
 }
+
+function startForm() {
+
+    document
+        .getElementById("start")
+        .classList.remove("active");
+
+    document
+        .getElementById("step1")
+        .classList.add("active");
+}
+
+
+// Убегающая кнопка "Нет"
+
+const noBtn = document.getElementById("noBtn");
+
+
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+
+function moveNo() {
+
+    const x = Math.random() * 160 - 80;
+    const y = Math.random() * 60 - 30;
+
+    noBtn.style.transform =
+        `translate(${x}px, ${y}px)`;
+}
+
+
+// Если всё-таки поймали кнопку
+
+noBtn.addEventListener("click", function() {
+
+    noBtn.style.transform = "scale(2)";
+    noBtn.style.opacity = "0";
+
+    setTimeout(() => {
+        noBtn.remove();
+    }, 250);
+
+});
 
 const buttons = document.querySelectorAll(".time-btn");
 const timeInput = document.getElementById("timeInput");
